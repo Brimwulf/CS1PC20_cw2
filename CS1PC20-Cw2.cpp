@@ -2,19 +2,114 @@
 //
 
 #include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+#include "item.h"
+#include "Room.h"
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+class Character {
+private:
+    string name;
+    int health;
+    vector<Item> inventory;
+public:
+    Character(const string& name, int health);
+    void takeDamage(int damage);
+};
+
+class Player : public Character {
+private:
+    Room* location;
+public:
+    Player(const string& name, int health);
+    void getLocation();
+    void setLocation();
+};
+
+/* int Player() {
+    cout << "What is your name? ";
+    string name;
+    cin >> name;
+    int health;
+    health = 100;
+    return name, health;
+} */
+
+int main() {
+    //Create Rooms
+    Room startRoom("You are in a dimly lit room");
+    Room hallway("You are in a long hallway");
+    Room lootRoom("You have entered a room filled with loot");
+
+    //Define exits between rooms
+    startRoom.addExit("north", &hallway);
+    hallway.addExit("south", &startRoom);
+    hallway.addExit("north", &lootRoom);
+    lootRoom.addExit("south", &hallway);
+
+    //Create items
+    Item key("Key", "A key, it must open something");
+    Item sword("Sword", "Some say the pen is mightier than the sword... but you beg to differ");
+
+    //Add items to room
+    startRoom.addItem(key);
+    lootRoom.addItem(sword);
+
+    //Create a Player
+    Player player("Alice", 100);
+
+    //Set the player's starting location
+    player.setLocation(&startRoom);
+
+    //Game loop
+    while (true) {
+        cout << "Current Location: " << player.getLocation() > getDescription() << endl;
+        cout << "Items in around you: " << endl;
+        for (const Item& item : player.getLocation()->getItems()) {
+            cout << "- " << item.getName() << ": " << item.getDescription() << endl;
+        }
+        cout << "Options: ";
+        cout << "1. Look around | ";
+        cout << "2. Interact with an item | ";
+        cout << "3. Move to another room | ";
+        cout << "4. Quit" << endl;
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            //Player looks around (no actions required)
+            cout << "You check the room around you" << endl;
+            // Later I'd like to add something that shows the items in the current room for this option
+        }
+        else if (choice == 2) {
+            //Player interacts with an item in the room
+            cout << "Enter the name of the item you want to interact with: ";
+            string itemName;
+            cin >> itemName;
+            for (Item& item : player.getLocation()->getItems()) {
+                if (item.getName() == itemName) {
+                    item.Interact();
+                    break;
+                }
+            }
+        }
+        else if (choice == 3) {
+            cout << "Are you sure you want to quit? Y/N";
+            string quitChoice;
+            cin >> quitChoice;
+            if (quitChoice == "Y") {
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+        else {
+            cout << "Invalid choice. Try again." << endl;
+        }
+    }
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

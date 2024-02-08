@@ -129,6 +129,10 @@
   <ItemGroup>
     <ClCompile Include="CS1PC20-Cw2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="item.h" />
+    <ClInclude Include="Room.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
