@@ -17,6 +17,9 @@ private:
 public:
     Character(const string& name, int health);
     void takeDamage(int damage);
+    void AddToInv(const Item& item) {
+        inventory.push_back(item);
+    }
 };
 
 class Player : public Character {
