@@ -12,7 +12,13 @@ private:
     vector<Item> items;
 public:
     Room(const string& desc);
-    void addItem(const Item& item);
-    void removeItem(const Item& item);
-    void addExit(map<string, Room*>& exits);
+    int addItem(const Item& item) {
+        items.push_back(item);
+    }
+    int removeItem(const Item& item) {
+        items.erase(item);      // This part of the code needs to erase the item passed into it by item from the items vector.
+    }
+    void addExit(const string& direction, Room* room) {     // This function is taking the string from the function call and the room and adding it to exits.
+        exits[direction] = room;
+    }
 };

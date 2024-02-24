@@ -27,11 +27,15 @@ private:
     Room* location;
 public:
     Player(const string& name, int health);
-    void getLocation();
-    void setLocation();
+    Room* getLocation() {
+        return location;
+    }
+    void setLocation(Room* room) {
+        location = room;
+    }
 };
 
-/* int Player() {
+/* int Player() {   
     cout << "What is your name? ";
     string name;
     cin >> name;
