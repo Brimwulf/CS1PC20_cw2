@@ -16,7 +16,12 @@ private:
     vector<Item> inventory;
 public:
     Character(const string& name, int health);
-    void takeDamage(int damage);
+    void takeDamage(int damage) {
+        health -= damage; // decrease health by damage
+        if (health < 0) {
+            health = 0; // health cannot be less than 0.
+        }
+    }
     void AddToInv(const Item& item) {
         inventory.push_back(item);
     }
@@ -33,6 +38,25 @@ public:
     void setLocation(Room* room) {
         location = room;
     }
+    void move(); // need movement logic.
+};
+
+class commandInterpreter {
+public:
+    commandInterpreter(Player* player) : player_(player) {} // constructor
+    void interpretCommand(const string& command) {
+        // This function will have a series of commands which are triggered by ifs.
+        if (command == "move") {
+            player_->move();
+        }
+        // need to add else ifs for other commands.
+        // Have the ifs call Player methods like pickupitem and lookaround.
+        else {
+            cout << "Unknown command" << endl;
+        }
+    }
+private:
+    Player* player_; // points to the player object
 };
 
 /* int Player() {   
@@ -44,7 +68,11 @@ public:
     return name, health;
 } */
 
-int main() {
+/*
+* This function is responsible for building the game world. It will contain all the logic to place items
+* in different rooms and create a player.
+*/
+void preGameBuild() {
     //Create Rooms
     Room startRoom("You are in a dimly lit room");
     Room hallway("You are in a long hallway");
@@ -69,9 +97,25 @@ int main() {
 
     //Set the player's starting location
     player.setLocation(&startRoom);
+}
+
+int main() {
+
+    preGameBuild();
+    /*commandInterpreter interpreter(&player);
+    string command;*/
 
     //Game loop
     while (true) {
+
+        /*cout << "> ";
+        getline(cin, command);
+        if (command == "quit") {
+            break;
+        }
+        interpreter.interpretCommand(command);*/
+        // Command interpreter functionality ready to be implemented.
+
         cout << "Current Location: " << player.getLocation() > getDescription() << endl;
         cout << "Items in around you: " << endl;
         for (const Item& item : player.getLocation()->getItems()) {

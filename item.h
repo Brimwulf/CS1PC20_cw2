@@ -12,15 +12,13 @@ public:
     Item(const string& name, const string& desc)
         : name(name), description(desc) {}
     bool Interact();
-    string getName() {
+    string getName() const {
         return name;
     }
     string getDescription() {
         return description;
     }
 };
-
-
 
 bool Item::Interact() {
     cout << "You pick up the " << name << endl;
