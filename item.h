@@ -40,5 +40,4 @@ bool Item::Interact() {
             cout << "Invalid, please retry";
         }
     }
-    
 }
