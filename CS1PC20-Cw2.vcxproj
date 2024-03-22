@@ -24,6 +24,7 @@
     <ProjectGuid>{77a34d38-c420-4953-9eab-ce603e8d47db}</ProjectGuid>
     <RootNamespace>CS1PC20Cw2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Phantasmal-CS1PC20-Cw2</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,7 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CS1PC20-Cw2.cpp" />
+    <ClCompile Include="PhantasmalMainCode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="item.h" />

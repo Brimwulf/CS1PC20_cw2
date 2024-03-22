@@ -98,8 +98,9 @@ int main() {
             cin >> itemName;
             for (Item& item : player.getLocation()->getItems()) {
                 if (item.getName() == itemName) {
-                    item.Interact();
-                    break;
+                    if (item.Interact()) {
+                        player.AddToInv(item);
+                    }
                 }
             }
         }

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CS1PC20-Cw2.cpp">
+    <ClCompile Include="PhantasmalMainCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
