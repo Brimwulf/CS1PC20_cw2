@@ -29,7 +29,7 @@ void Item::Interact() {
             //Call the AddToInv function from class Character and add the item being interacted with
             Character::AddToInv; /*I'm fairly sure this needs parameters but I don't know how to add them
                                    I'll ask Pat when I next get a chance to*/
-            
+            break;
         }
         else if (choice == "N") {
             cout << "You leave the " << name << " where it is" << endl;
@@ -39,5 +39,4 @@ void Item::Interact() {
             cout << "Invalid, please retry";
         }
     }
-    
 }
