@@ -90,6 +90,42 @@ public:
 // use inheritance below to create some game objects. For example:
 // class Key : public gameObject { ..... }
 
+class Inventory {
+private:
+    vector<gameObject*> items;
+public:
+    void addItem(gameObject* item) {
+        if (item != nullptr) {
+            items.push_back(item);
+        }
+        else {
+            cout << "No such item as: " << item << endl;
+        }
+    }
+    void useItem(gameObject* item, gameObject& target) {
+        // I'll figure out what to do with this method later... probably.
+    }
+    void dropItem(const Item& item) {
+        cout << "You drop the: " << item.getName() << endl;
+        for (auto it = items.begin(); it != items.end(); it++) {
+            items.erase(it);
+            break;
+        }
+    }
+};
+
+// Defining the ghost's behaviour
+class Ghost {
+private:
+    enum State{Idle,Hunting,Roaming};
+    State currentState();
+public:
+    Ghost() : currentState(idle) {}
+    void upate() {
+
+    }
+};
+
 /* int Player() {   
     cout << "What is your name? ";
     string name;
