@@ -31,23 +31,45 @@ class Player : public Character {
 private:
     Room* location;
 public:
-    Player(const string& name, int health);
+    Player(const string& name, int health) : Character(name, health), location(nullptr) {}
     Room* getLocation() {
         return location;
     }
     void setLocation(Room* room) {
         location = room;
     }
-    void move(); // need movement logic.
+    void move(Room* room) {
+        if (room != nullptr) {      // Checking if the room exists
+            location = room;
+        }
+        else {
+            cout << "No such room as: " << room << endl;
+        }
+    }
 };
 
 class commandInterpreter {
 public:
-    commandInterpreter(Player* player) : player_(player) {} // constructor
+    commandInterpreter(Player* player, Area* area) : player_(player), area_(area) {} // constructor
     void interpretCommand(const string& command) {
         // This function will have a series of commands which are triggered by ifs.
         if (command == "move") {
-            player_->move();
+            string roomChoice;
+            while (true) {
+                cout << "enter room name" << endl;
+                cin >> roomChoice;
+                Room* roomMoveTo = area_->getRoom(roomChoice);
+                if (roomMoveTo != nullptr) {
+                    player_->move(roomMoveTo);
+                    return;
+                }
+                else if (roomChoice == "cancel") {
+                    return;
+                }
+                else {
+                    cout << "No such room as: " << roomChoice << endl;
+                }
+            }
         }
         // need to add else ifs for other commands.
         // Have the ifs call Player methods like pickupitem and lookaround.
@@ -57,7 +79,16 @@ public:
     }
 private:
     Player* player_; // points to the player object
+    Area* area_; // points to the area as well.
 };
+
+//Creating a framework for interacting with objects:
+class gameObject {
+public:
+    virtual void interact(gameObject& other) = 0;   // Virtual function which allows interact to be called at any point.
+};
+// use inheritance below to create some game objects. For example:
+// class Key : public gameObject { ..... }
 
 /* int Player() {   
     cout << "What is your name? ";
