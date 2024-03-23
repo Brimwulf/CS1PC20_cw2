@@ -50,7 +50,7 @@ public:
 
 class commandInterpreter {
 public:
-    commandInterpreter(Player* player, Area* area) : player_(player), area_(area) {} // constructor
+    commandInterpreter(Player* player, Area* area, Journal* journal) : player_(player), area_(area), journal_(journal) {} // constructor
     void interpretCommand(const string& command) {
         // This function will have a series of commands which are triggered by ifs.
         if (command == "move") {
@@ -71,6 +71,9 @@ public:
                 }
             }
         }
+        if (command == "read journal") {
+            journal_->readJournal();
+        }
         // need to add else ifs for other commands.
         // Have the ifs call Player methods like pickupitem and lookaround.
         else {
@@ -80,12 +83,26 @@ public:
 private:
     Player* player_; // points to the player object
     Area* area_; // points to the area as well.
+    Journal* journal_;
 };
 
 //Creating a framework for interacting with objects:
 class gameObject {
 public:
     virtual void interact(gameObject& other) = 0;   // Virtual function which allows interact to be called at any point.
+};
+
+class Clue : public gameObject {
+private:
+    string description;
+public:
+    Clue(const string& desc) : description(desc) {} // constructor to create a clue.
+    string getDescription() const {
+        return description;
+    }
+    void interact(gameObject& other) override {
+        // Needs implementing the interaction with the clue.
+    }
 };
 // use inheritance below to create some game objects. For example:
 // class Key : public gameObject { ..... }
@@ -131,16 +148,47 @@ public:
 // the more clues they have.
 class Journal {
 private:
-    vector<gameObject*> clues;  // This vector will contain the collected clues.
+    map<gameObject*,string> clues;  // This map will contain the collected clues.
 public:
+    void addClue(gameObject* clue, string desc) {
+        Clue* clueObj = dynamic_cast<Clue*>(clue);
+        if (clueObj != nullptr) {
+            clues[clue] = clueObj->getDescription();
+            /*updateJournal();*/
+        }
+    }
     enum Status { Empty, InProgress, AllEvidenceCollected };
     Status status;
     Journal() : status(Empty) {}
     
-    void updateJournal() {
-        clues.push_back()
-    }
+    /*void updateJournal() {
+        status = 
+    }*/
     void complete() {
+
+    }
+    void readJournal() const {
+        if (clues.empty()) {
+            cout << "No clues collected yet." << endl;
+        }
+        else {
+            cout << "Collected clues:" << endl;
+            for (const auto& clue : clues) {
+                Clue* clueObj = dynamic_cast<Clue*>(clue.first);
+                if (clueObj != nullptr) {
+                    cout << " | " << clueObj->getDescription() << " | " << clue.second << endl;
+                }
+            }
+        }
+    }
+};
+
+class GameSaverLoader {
+public:
+    void saveGame(const string& filename) {
+
+    }
+    void loadGame(const string& filename) {
 
     }
 };
