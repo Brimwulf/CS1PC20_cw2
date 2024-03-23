@@ -185,8 +185,15 @@ public:
 
 class GameSaverLoader {
 public:
-    void saveGame(const string& filename) {
-
+    void saveGame(const string& filename, Player& player) {
+        ofstream outFile(filename);
+        if (outFile.is_open()) {
+            // Save the player's name and health
+            outFile << player.getLocation() << endl;
+        }
+        else {
+            cout << "Unable to access save file." << endl;
+        }
     }
     void loadGame(const string& filename) {
 
@@ -235,22 +242,48 @@ void preGameBuild() {
 
 int main() {
 
-    preGameBuild();
-    /*commandInterpreter interpreter(&player);
-    string command;*/
+    Player player("Alice", 100);
+    Room startRoom("You are in a dimly lit room");
+    Room hallway("You are in a long hallway");
+    Room lootRoom("You have entered a room filled with loot");
 
-    //Game loop
-    while (true) {
+    //Define exits between rooms
+    startRoom.addExit("north", &hallway);
+    hallway.addExit("south", &startRoom);
+    hallway.addExit("north", &lootRoom);
+    lootRoom.addExit("south", &hallway);
 
-        /*cout << "> ";
-        getline(cin, command);
-        if (command == "quit") {
-            break;
-        }
-        interpreter.interpretCommand(command);*/
+    //Create items
+    Item key("Key", "A key, it must open something");
+    Item sword("Sword", "Some say the pen is mightier than the sword... but you beg to differ");
+
+    //Add items to room
+    startRoom.addItem(key);
+    lootRoom.addItem(sword);
+
+    //Create a Player
+    /*Player player("Alice", 100);*/
+
+    //Set the player's starting location
+    player.setLocation(&startRoom);
+
+    //preGameBuild();
+    //commandInterpreter interpreter(&player);
+    //string command;
+    //Player player("Alice", 100);
+    ////Game loop
+    //while (true) {
+
+    //    cout << "> ";
+    //    getline(cin, command);
+    //    if (command == "quit") {
+    //        break;
+    //    }
+    //    interpreter.interpretCommand(command);
         // Command interpreter functionality ready to be implemented.
 
-        cout << "Current Location: " << player.getLocation() > getDescription() << endl;
+    while(true) {
+        cout << "Current Location: " << player.getLocation() > startRoom.getDescription() << endl;
         cout << "Items in around you: " << endl;
         for (const Item& item : player.getLocation()->getItems()) {
             cout << "- " << item.getName() << ": " << item.getDescription() << endl;
@@ -299,3 +332,10 @@ int main() {
     }
     return 0;
 }
+
+/*
+* TO DO: I need to first, write the save game/load class. It needs a series of getters and setters for things like health, etc. It should also load
+* the characters inventory and location (code is in onenote). Then I need to write the NPC behaviour for the ghost and create a series of constructors
+* that create an instance of the ghost with unique behaviours. Could use inheritance or polymorphism? Then once that's done, create functionality to load
+* the map from files and implement the game loop of finding out the ghost type.
+*/
