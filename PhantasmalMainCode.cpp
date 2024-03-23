@@ -120,8 +120,27 @@ private:
     enum State{Idle,Hunting,Roaming};
     State currentState();
 public:
-    Ghost() : currentState(idle) {}
+    Ghost() : currentState(Idle) {}
     void upate() {
+
+    }
+};
+
+// This class will be used to track the player's progress in finding the ghost. It should allow players to check what clues they have collected so far.
+// I also want to add a behaviour to Ghost that makes it enter Roaming after the player collects the first clue and is more likely to enter Hunting 
+// the more clues they have.
+class Journal {
+private:
+    vector<gameObject*> clues;  // This vector will contain the collected clues.
+public:
+    enum Status { Empty, InProgress, AllEvidenceCollected };
+    Status status;
+    Journal() : status(Empty) {}
+    
+    void updateJournal() {
+        clues.push_back()
+    }
+    void complete() {
 
     }
 };
