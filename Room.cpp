@@ -66,9 +66,27 @@ void Area::loadMapFromFile(const string& filename) {
         size_t commaPosition = line.find(',');
         if (commaPosition != string::npos) {
             string name = line.substr(0, commaPosition);
-            string desc = line.substr(commaPosition + 1);
+            string rest = line.substr(commaPosition + 1);
+            commaPosition = rest.find(',');
+            string desc = rest.substr(0, commaPosition);
             Room* room = new Room(desc);
             addRoom(name, room);
+
+            // parsing exits as well
+            string exits = rest.substr(commaPosition + 1);
+            stringstream ss(exits);
+            string exit;
+            while (getline(ss, exit, ',')) {
+                size_t colonPosition = exit.find(':');
+                if (colonPosition != string::npos) {
+                    string exitRoomName = exit.substr(0, colonPosition);
+                    string direction = exit.substr(colonPosition + 1);
+                    Room* exitRoom = getRoom(exitRoomName);
+                    if (exitRoom != nullptr) {
+                        room->addExit(direction, exitRoom);
+                    }
+                }
+            }
         }
     }
 }

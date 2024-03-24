@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include "item.h"
 using namespace std;
 
