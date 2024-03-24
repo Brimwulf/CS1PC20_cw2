@@ -128,10 +128,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character_.cpp" />
+    <ClCompile Include="CommandInterpreter.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameSaverLoader.cpp" />
+    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="Journal.cpp" />
     <ClCompile Include="PhantasmalMainCode.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CommandInterpreter.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameSaverLoader.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="Journal.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
