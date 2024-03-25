@@ -23,10 +23,19 @@ void Room::addExit(const string& direction, Room* room) {     // This function i
 map<string, Room*> Room::getExits() const {
     return exits;
 }
-void Room::addClue(const Clue& clue) {
+void Room::addClue(Clue* clue) {
     clues.push_back(clue);
 }
+bool Room::hasClue(Clue* clue) {        // Adding a checker function that can be used by ghost to make sure a room only has one clue.
+    for (Clue* c : clues) {
+        if (c == clue) {
+            return true;
+        }
+    }
+    return false;
+}
 
+// Area methods:
 void Area::addRoom(const string& name, Room* room) {
     rooms.insert({ name,room }); //inserts the room into the map.
 }
@@ -39,6 +48,10 @@ Room* Area::getRoom(const string& name) {
     }
 }
 Room* Area::getRandomRoom() {
+    if (rooms.size() == 0) {
+        cout << "returned null." << endl;
+        return nullptr; //error handling :)
+    }
     int index = rand() % rooms.size(); // generates a random room.
     auto iterator = rooms.begin();
     advance(iterator, index);
@@ -65,7 +78,9 @@ void Area::loadMapFromFile(const string& filename) {
         return;
     }
     string line;
+    map<string, string> roomExits;
     while (getline(file, line)) {
+        //cout << "Processing line: " << line << endl;
         size_t commaPosition = line.find(',');
         if (commaPosition != string::npos) {
             string name = line.substr(0, commaPosition);
@@ -75,21 +90,37 @@ void Area::loadMapFromFile(const string& filename) {
             Room* room = new Room(desc);
             addRoom(name, room);
 
-            // parsing exits as well
+            //cout << "Added room: " << name << endl;
+
+            // Save exits for later processing
             string exits = rest.substr(commaPosition + 1);
-            stringstream ss(exits);
-            string exit;
-            while (getline(ss, exit, ',')) {
-                size_t colonPosition = exit.find(':');
-                if (colonPosition != string::npos) {
-                    string exitRoomName = exit.substr(0, colonPosition);
-                    string direction = exit.substr(colonPosition + 1);
-                    Room* exitRoom = getRoom(exitRoomName);
-                    if (exitRoom != nullptr) {
-                        room->addExit(direction, exitRoom);
-                    }
+            roomExits[name] = exits;
+        }
+    }
+
+    // Now that all rooms are added, add the exits
+    for (const auto& pair : roomExits) {
+        string roomName = pair.first;
+        string exits = pair.second;
+        Room* room = getRoom(roomName);
+        stringstream ss(exits);
+        string exit;
+        while (getline(ss, exit, ',')) {
+            size_t colonPosition = exit.find(':');
+            if (colonPosition != string::npos) {
+                string direction = exit.substr(0, colonPosition);
+                string exitRoomName = exit.substr(colonPosition + 1);
+                Room* exitRoom = getRoom(exitRoomName);
+                //cout << "exitRoomName is set to: " << exitRoomName << "And direction is: " << direction << endl;
+                if (exitRoom != nullptr) {
+                    room->addExit(direction, exitRoom);
+                    //cout << "Added exit from " << roomName << " to " << exitRoomName << " in direction " << direction << endl;
+                }
+                else {
+                    cout << "DEBUG: Returned nullptr at loadmap" << endl;
                 }
             }
         }
     }
+
 }

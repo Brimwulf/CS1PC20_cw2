@@ -8,17 +8,24 @@ void Ghost::upateState() {
 void Ghost::updateStateOnPlayerMove() {
     if (currentState == Roaming) {
         int random = rand() % 100;
-        if (random < 20) {
+        if (random < 90) {          // setting the ghost to be extremely aggressive. If I forget to change this back I'm sorry to any future players.
             cout << "A chill runs down your spine..." << endl;
             currentState = Hunting;
+        }
+        else {
+            roam();
         }
     }
 }
 void Ghost::roam() {
     if (currentState == Roaming) {
+        cout << "Number of rooms: " << area->getNumberOfRooms() << endl;
         Room* newRoom = area->getRandomRoom();
         if (newRoom != nullptr) {
             currentRoom = newRoom;
+        }
+        else {
+            cout << "DEBUG: Returned nullptr at newstate" << endl;
         }
     }
 }
@@ -63,10 +70,16 @@ void Ghost::hunt() {
     }
 }
 void Ghost::distributeClues() {
-    for (const Clue& clue : clues) {
-        Room* room = area->getRandomRoom();
+    for (Clue* clue : clues) {
+        Room* room;
+        do {
+            room = area->getRandomRoom();
+        } while (room != nullptr && room->hasClue(clue));       // Checker to see if the room has a clue already.
         if (room != nullptr) {
             room->addClue(clue);
+        }
+        else {
+            cout << "DEBUG: returned null at distribution" << endl;
         }
     }
 }

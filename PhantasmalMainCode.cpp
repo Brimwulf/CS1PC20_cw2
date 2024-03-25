@@ -20,43 +20,105 @@
 
 using namespace std;
 
-/*
-* This function is responsible for building the game world. It will contain all the logic to place clues
-* in different rooms and create a player.
-*/
-void preGameBuild() {
+int main() {
+    // pre game generation:
     Area area;
 
     cout << "Welcome to Phantasmal" << endl;
     // Create the player
     string name;
     cout << "What is your name?" << endl;
-    cin >> name;
+    getline(cin, name);
     Player player(name, 100);
 
     // Create the pre-game command interpreter for the pre game
     commandInterpreter preGameCommandInterpreter(&player, &area, nullptr);
     // Get the user inputs for the start "menu"
-    string choice;
-    cout << "Would you like to load a save file or open a new map?" << endl;
-    cin >> choice;
-    if (choice == "load") {
-        preGameCommandInterpreter.preGameCommands("load");
-    }
-    else if (choice == "map") {
-        string mapName;
-        cout << "Choose the map: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
-        cin >> mapName;
-        preGameCommandInterpreter.preGameCommands("map", mapName); // The extra parameter here allows a subcommand to be added to the command interpreter.
-    }
 
+
+    bool commandSuccessful = false;
+    while (!commandSuccessful) {
+        string choice;
+        cout << "Would you like to load a save file or open a new map?" << endl;
+        getline(cin, choice);
+        if (choice == "load") {
+            preGameCommandInterpreter.preGameCommands("load");
+            commandSuccessful = true;
+        }
+        else if (choice == "map") {
+            string mapName;
+            cout << "Choose the map: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
+            getline(cin, mapName);
+            preGameCommandInterpreter.preGameCommands("map", mapName); // The extra parameter here allows a subcommand to be added to the command interpreter.
+            commandSuccessful = true;
+        }
+        else if (choice == "help") {
+            preGameCommandInterpreter.preGameCommands("help");
+        }
+        else {
+            cout << "Unknown command. Please try 'help' for a list of commands." << endl;
+        }
+    }
     player.setLocation(area.getRandomRoom()); // puts the player in a random room.
-}
+    // for debugging
+    if (player.getLocation() != nullptr) {
+        cout << player.getLocation()->getDescription() << endl;
+    }
+    else {
+        cout << "Player location not set." << endl;
+    }
 
-int main() {
+    // generate a random ghost
+    // Can add more ghosts later
+    // Getting the random number
+    srand(time(0)); //changes the random seed based on the current time... neat right? I thought it was neat..
+    int ghostType = rand() % 10 + 1;
+    //cout << "random number is: " << ghostType << endl;
 
-    
+    // Generating a ghost using the random number.
+    Ghost* ghost;
+    if (ghostType <= 3) {       // 30% chance
+        ghost = new Ghost(&player, &area, "demon");
+        Clue* clue1 = new Clue("This room smells like a fire was recently put out in it.");
+        ghost->addClue(clue1);
+        Clue* clue2 = new Clue("There's a pentogram written in this room with candles put out on each point.");
+        ghost->addClue(clue2);
+        Clue* clue3 = new Clue("As you enter the room a wave of dread washes over you.");
+        ghost->addClue(clue3);
+    }
+    else if (ghostType <= 7) {  // 40% chance
+        ghost = new Ghost(&player, &area, "poltergeist");
+        Clue* clue1 = new Clue("As you enter the room a wave of dread washes over you.");
+        ghost->addClue(clue1);
+        Clue* clue2 = new Clue("This room is a mess, there are objects strewn across the floor.");
+        ghost->addClue(clue2);
+        Clue* clue3 = new Clue("This room feels unnaturally cold.");
+        ghost->addClue(clue3);
+    }
+    else {                     // 30% chance
+        ghost = new Ghost(&player, &area, "yokai");
+        Clue* clue1 = new Clue("This room feels unnaturally cold.");
+        ghost->addClue(clue1);
+        Clue* clue2 = new Clue("You could swear you hear indecipherable whisperings.");
+        ghost->addClue(clue2);
+        Clue* clue3 = new Clue("This room is a mess, there are objects strewn across the floor.");
+        ghost->addClue(clue3);
+    }
+    ghost->distributeClues();
 
+    // Creating the command interpreter:
+    commandInterpreter gameCommandInterpreter(&player, &area, ghost);
+
+    // Now creating the game loop:
+    while (!gameCommandInterpreter.gameOverChecker()) {
+        string command;
+        cout << "Enter Comand: ";
+        getline(cin, command);
+
+        // processing the command.
+        gameCommandInterpreter.interpretCommand(command);
+    }
+    delete ghost;
     return 0;
 }
 

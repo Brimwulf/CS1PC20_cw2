@@ -1,3 +1,6 @@
+#ifndef JOURNAL_H
+#define JOURNAL_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -23,3 +26,5 @@ public:
     void complete();
     void readJournal() const;
 };
+
+#endif

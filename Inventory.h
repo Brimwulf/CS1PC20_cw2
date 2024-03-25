@@ -1,3 +1,6 @@
+#ifndef INVENTORY_H
+#define INVENTORY_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -14,3 +17,5 @@ public:
     void useItem(gameObject* item, gameObject& target);
     void dropItem(const Item& item);
 };
+
+#endif

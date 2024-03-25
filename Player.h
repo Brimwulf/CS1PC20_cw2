@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -7,18 +10,16 @@
 #include "GameObject.h"
 using namespace std;
 
-class Room;
-class Clue;
-
 class Player : public Character {
 private:
     Room* location;
+    Area* area;
     vector<Clue*> clues;
 public:
     Player(const string& name, int sanity) : Character(name, sanity), location(nullptr) {}
     Room* getLocation();
     void setLocation(Room* room);
-    void move(Room* room);
+    void move(string direction);
     void addClue(Clue* clue);
     int getClueCount() const;
     void setName(const string& nName) {
@@ -27,4 +28,8 @@ public:
     void setSanity(int nSanity) {
         Character::setSanity(nSanity);
     }
+    void setArea(Area* area) {
+        this->area = area;
+    }
 };
+#endif

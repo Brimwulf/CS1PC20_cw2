@@ -1,3 +1,6 @@
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -20,3 +23,4 @@ public:
 };
 // use inheritance below to create some game objects. For example:
 // class Key : public gameObject { ..... }
+#endif // !GAMEOBJECT_H

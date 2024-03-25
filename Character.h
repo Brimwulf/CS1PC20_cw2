@@ -1,3 +1,6 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H  //adding include guards to prevent redefinitions.
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -27,3 +30,5 @@ public:
         sanity = nSanity;
     }
 };
+
+#endif
