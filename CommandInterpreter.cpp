@@ -37,7 +37,7 @@ void commandInterpreter::interpretCommand(const string& command, const string& s
         cout << "Ghost types:" << endl;
         cout << "Demon: A malevolent entity from hell.\nEvidence: A smell of burning lingers where this ghost has been\nReports of pentograms and other runes\nAn inexplicable feeling of dread in places the demon has been\n" << endl;
         cout << "Poltergeist: A particularly active spirit that can affect the physical world\n Evidence: An inexplicable feeling of dread in places the poltergeist has been\nDisturbed objects within rooms\nAn unexplained cold breeze in rooms the poltergeist has been in\n" << endl;
-        cout << "Yōkai: A trickster spirit from Japanese folklore. \nEvidence: An unexplained cold breeze in rooms the Yōkai has been in\nReports of whispering in places a Yōkai haunts\nDisturbed objects or objects that have vanished or appeared out of thin air" << endl;
+        cout << "Yokai: A trickster spirit from Japanese folklore. \nEvidence: An unexplained cold breeze in rooms the Yōkai has been in\nReports of whispering in places a Yōkai haunts\nDisturbed objects or objects that have vanished or appeared out of thin air" << endl;
     }
     if (command == "interact with clue") {
 
