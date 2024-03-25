@@ -52,12 +52,21 @@ vector<Room*> Ghost::pathFindToPlayer() {
 void Ghost::hunt() {
     if (currentRoom == player->getLocation()) {
         player->takeDamage(10);
+        cout << "A terrible chill passes through you..." << endl;
         currentState = Roaming;
     }
     if (currentState == Hunting) {
         vector<Room*> path = pathFindToPlayer();
         if (!path.empty()) {
             currentRoom = path[1];
+        }
+    }
+}
+void Ghost::distributeClues() {
+    for (const Clue& clue : clues) {
+        Room* room = area->getRandomRoom();
+        if (room != nullptr) {
+            room->addClue(clue);
         }
     }
 }

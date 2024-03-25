@@ -1,0 +1,6 @@
+startHall,You are in the schools entry hallway. North is the principles office. East is the second classroom. West is the first classroom,north:principlesOffice,east:classRoom2,west:classRoom1
+classRoom1,You are in the first of two classrooms. East is the entry hallway,east:startHall
+classRoom2,You are in the second of two classrooms. North is the sports hall. West is the entry hallway,north:sportsHall,west:startHall
+principlesOffice,You are in the old principle's office. East is the sports hall. South is the entry hallway,east:sportsHall,south:startHall
+sportsHall,You are in a large echoey sports hall. North is the cafeteria. South is the second classroom. West is the principles office,north:cafeteria,south:classRoom2,west:principlesOffice
+cafeteria,This place once fed hundreds of hungry minds and now it lays abandoned. South is the sports hall,south:sportsHall

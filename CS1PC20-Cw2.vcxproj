@@ -152,6 +152,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Abandoned_Schoolhouse.txt" />
+    <Text Include="Eery_Asylum.txt" />
+    <Text Include="Old_Mansion.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

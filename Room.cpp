@@ -23,6 +23,9 @@ void Room::addExit(const string& direction, Room* room) {     // This function i
 map<string, Room*> Room::getExits() const {
     return exits;
 }
+void Room::addClue(const Clue& clue) {
+    clues.push_back(clue);
+}
 
 void Area::addRoom(const string& name, Room* room) {
     rooms.insert({ name,room }); //inserts the room into the map.

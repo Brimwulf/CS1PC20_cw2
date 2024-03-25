@@ -81,4 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Abandoned_Schoolhouse.txt" />
+    <Text Include="Eery_Asylum.txt" />
+    <Text Include="Old_Mansion.txt" />
+  </ItemGroup>
 </Project>

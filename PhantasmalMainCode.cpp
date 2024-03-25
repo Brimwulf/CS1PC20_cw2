@@ -16,47 +16,41 @@
 #include "Journal.h"
 #include "Player.h"
 #include "Room.h"
+// The amount of includes here hurts my head and I'm hoping its not horrendously bad practice to do it this way.
 
 using namespace std;
 
-/* int Player() {   
-    cout << "What is your name? ";
-    string name;
-    cin >> name;
-    int health;
-    health = 100;
-    return name, health;
-} */
-
 /*
-* This function is responsible for building the game world. It will contain all the logic to place items
+* This function is responsible for building the game world. It will contain all the logic to place clues
 * in different rooms and create a player.
 */
 void preGameBuild() {
-    //Create Rooms
-    Room startRoom("You are in a dimly lit room");
-    Room hallway("You are in a long hallway");
-    Room lootRoom("You have entered a room filled with loot");
+    Area area;
 
-    //Define exits between rooms
-    startRoom.addExit("north", &hallway);
-    hallway.addExit("south", &startRoom);
-    hallway.addExit("north", &lootRoom);
-    lootRoom.addExit("south", &hallway);
+    cout << "Welcome to Phantasmal" << endl;
+    // Create the player
+    string name;
+    cout << "What is your name?" << endl;
+    cin >> name;
+    Player player(name, 100);
 
-    //Create items
-    Item key("Key", "A key, it must open something");
-    Item sword("Sword", "Some say the pen is mightier than the sword... but you beg to differ");
+    // Create the pre-game command interpreter for the pre game
+    commandInterpreter preGameCommandInterpreter(&player, &area, nullptr);
+    // Get the user inputs for the start "menu"
+    string choice;
+    cout << "Would you like to load a save file or open a new map?" << endl;
+    cin >> choice;
+    if (choice == "load") {
+        preGameCommandInterpreter.preGameCommands("load");
+    }
+    else if (choice == "map") {
+        string mapName;
+        cout << "Choose the map: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
+        cin >> mapName;
+        preGameCommandInterpreter.preGameCommands("map", mapName); // The extra parameter here allows a subcommand to be added to the command interpreter.
+    }
 
-    //Add items to room
-    startRoom.addItem(key);
-    lootRoom.addItem(sword);
-
-    //Create a Player
-    Player player("Alice", 100);
-
-    //Set the player's starting location
-    player.setLocation(&startRoom);
+    player.setLocation(area.getRandomRoom()); // puts the player in a random room.
 }
 
 int main() {

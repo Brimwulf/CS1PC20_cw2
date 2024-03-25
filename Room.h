@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include "item.h"
+#include "GameObject.h"
 using namespace std;
 
 class Room {
@@ -12,9 +13,11 @@ private:
     string description;
     map<string, Room*> exits;
     vector<Item> items;
+    vector<Clue> clues;
 public:
     Room(const string& desc) : description(desc) {}
     void addItem(const Item& item);
+    void addClue(const Clue& clue);
     void removeItem(const Item& item);
     void addExit(const string& direction, Room* room);
     map<string, Room*> getExits() const;
