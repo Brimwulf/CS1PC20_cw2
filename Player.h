@@ -15,6 +15,7 @@ private:
     Room* location;
     Area* area;
     vector<Clue*> clues;
+    int clueRoomCount = 0;
 public:
     Player(const string& name, int sanity) : Character(name, sanity), location(nullptr) {}
     Room* getLocation();
@@ -30,6 +31,12 @@ public:
     }
     void setArea(Area* area) {
         this->area = area;
+    }
+    int getClueRoomCount() {
+        return clueRoomCount;
+    }
+    bool isInsane() const {
+        return getSanity() == 0;
     }
 };
 #endif

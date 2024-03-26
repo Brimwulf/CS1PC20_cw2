@@ -46,14 +46,31 @@ int main() {
             commandSuccessful = true;
         }
         else if (choice == "map") {
-            string mapName;
-            cout << "Choose the map: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
-            getline(cin, mapName);
-            preGameCommandInterpreter.preGameCommands("map", mapName); // The extra parameter here allows a subcommand to be added to the command interpreter.
+            bool mapLoaded = false;
+            while (!mapLoaded) {
+                string mapName;
+                cout << "Choose the map: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
+                getline(cin, mapName);
+                if (mapName == "Abandoned Schoolhouse" || mapName == "Eery Asylum" || mapName == "Old Mansion") {
+                    preGameCommandInterpreter.preGameCommands("map", mapName); // The extra parameter here allows a subcommand to be added to the command interpreter.
+                    commandSuccessful = true;
+                    mapLoaded = true;
+                    break;
+                }
+                if (mapName == "quit") {
+                    return 0;
+                }
+                else {
+                    cout << "Invalid map name. Please try again." << endl;
+                }
+            }
             commandSuccessful = true;
         }
         else if (choice == "help") {
             preGameCommandInterpreter.preGameCommands("help");
+        }
+        else if (choice == "quit") {
+            return 0;
         }
         else {
             cout << "Unknown command. Please try 'help' for a list of commands." << endl;
@@ -117,6 +134,11 @@ int main() {
 
         // processing the command.
         gameCommandInterpreter.interpretCommand(command);
+
+        if (player.isInsane()) {
+            cout << "Your mind is wracked with fear, you have no choice but to leave. Game over." << endl;
+            break;
+        }
     }
     delete ghost;
     return 0;

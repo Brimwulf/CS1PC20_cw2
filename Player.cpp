@@ -9,13 +9,14 @@ void Player::setLocation(Room* room) {
     // Print out any clues that are in the room.
     const vector<Clue*>& clues = room->getClues();
     for (Clue* clue : clues) {
-        if (clue == nullptr) {
+        if (clue != nullptr) {
+            cout << clue->getDescription() << endl;
+            clueRoomCount++;
+        }
+
+        else {
             cout << "Found null clue in the room" << endl;
         }
-        else {
-            cout << "DEBUG: returned nullptr at setlocation" << endl;
-        }
-        cout << clue->getDescription() << endl;
     }
 }
 void Player::move(string direction) {

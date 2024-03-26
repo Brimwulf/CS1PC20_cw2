@@ -87,7 +87,7 @@ void commandInterpreter::preGameCommands(const string& command, const string& su
         GameSaverLoader loader;
         loader.loadGame("savefile.txt", *player_, *area_);
     }
-    if (command == "map") {
+    else if (command == "map") {
         if (subCommand == "Abandoned Schoolhouse") {
             area_->loadMapFromFile("Abandoned_Schoolhouse.txt");
         }
@@ -101,8 +101,11 @@ void commandInterpreter::preGameCommands(const string& command, const string& su
             cout << "No such map as: " << subCommand << endl;
         }
     }
-    if (command == "help") {
+    else if (command == "help") {
         cout << "load or map (map) - command structure." << endl;
         cout << "Maps are: Abandoned Schoolhouse, Eery Asylum, Old Mansion" << endl;
+    }
+    else {
+        cout << "Invalid command" <<endl;
     }
 }
