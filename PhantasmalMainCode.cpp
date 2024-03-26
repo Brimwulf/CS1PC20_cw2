@@ -145,8 +145,8 @@ int main() {
 }
 
 /*
-* TO DO: I need to first, write the save game/load class. It needs a series of getters and setters for things like health, etc. It should also load
-* the characters inventory and location (code is in onenote). Then I need to write the NPC behaviour for the ghost and create a series of constructors
-* that create an instance of the ghost with unique behaviours. Could use inheritance or polymorphism? Then once that's done, create functionality to load
-* the map from files and implement the game loop of finding out the ghost type.
+* TO DO: It would be good if the ghost had extra behaviour which moves it to a random room the player isnt in before starting a hunt. That way it has no chance
+* of instantly dealing damage to the player the second it enters a hunt. Additionally it would be interesting to have certain phenomena happen when the ghost
+* is in a roaming state but happens to have roamed into the same room as the player. With more time I would have also added a journal which tracks the clues
+* collected, added more ghosts, made the ghosts more aggressive the more clues you have collected and maybe also giving the different ghosts different behaviours.
 */

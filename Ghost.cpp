@@ -7,8 +7,8 @@ void Ghost::upateState() {
     }
 }
 void Ghost::updateStateOnPlayerMove() {
-    cout << "\nDEBUG: ghost state: " << currentState << endl;
-    cout << "DEBUG: ghost location: " << currentRoom->getDescription() << "\n" << endl;
+    //cout << "\nDEBUG: ghost state: " << currentState << endl;
+    //cout << "DEBUG: ghost location: " << currentRoom->getDescription() << "\n" << endl;
     if (player->getClueRoomCount() > 0 && currentState == Idle) {
         currentState = Roaming;
     }
