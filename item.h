@@ -1,3 +1,6 @@
+#ifndef ITEM_H
+#define ITEM_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -9,8 +12,10 @@ private:
     string name;
     string description;
 public:
-    Item(const string& name, const string& desc);
-    void Interact();
-    void getName();
-    void getDescription();
+    Item(const string& name, const string& desc)
+        : name(name), description(desc) {}
+    bool Interact();
+    string getName() const;
+    string getDescription();
 };
+#endif

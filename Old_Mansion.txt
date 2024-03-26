@@ -1,0 +1,8 @@
+startHall,You are in an entryway which opens up to this grand foreboding mansion. north is the stairs leading to the upper landing. east is the living room. west is the kitchen,north:upperLanding,east:livingRoom,west:kitchen
+livingRoom,You are in a dusty living room. West is the hallway,west:startHall
+kitchen,You are in an untouched kitchen. East is the hallway,east:startHall
+upperLanding,You stand atop the upper landing of this mansion. North is the master bedroom. East is the guest chamber. South is the hallway. West is the bathroom,north:masterBedroom,east:guestChamber,south:startHall,west:bathroom
+guestChamber,An old guestchamber the surfaces are caked in dust. West is the upper landing,west:upperLanding
+bathroom,A dark musty bathroom. East is the upper landing,east:upperLanding
+masterBedroom,A once grand now crumbling master bedroom. North is a balcony. South is the upper landing,north:balcony,south:upperLanding
+balcony,A balcony that overlooks a foreboding forest. South is the master bedroom, south:masterBedroom

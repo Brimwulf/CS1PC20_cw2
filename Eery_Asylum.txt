@@ -1,0 +1,8 @@
+startHall,You're in the entryway of an old asylum. North is the wardens office. East is the first cell,north:wardenOffice,east:cell1
+wardenOffice,You stand within the warden's old office. East is a hallway leading to the main hall. South is the entryway,east:hallwayToHall,south:startHall
+hallwayToHall,You're in a thin dim hallway. East is the main hall. West is the wardens office,east:hall,west:wardenOffice
+cell1,You are in the first of many dingy cells. North is the main hall. East is the second cell,north:hall,east:cell2
+cell2,You are in the second of many dingy cells. North is the main hall. East is the third cell. West is the first cell,north:hall,east:cell3,west:cell1
+cell3,You are in the third of many dingy cells. North is the main hall. West is the second cell,north:hall,west:cell2
+hall,You are in a wide hall where many residents of the asylum once gathered. North is the cafeteria. South is the second cell. West is the hallway to the wardens office,north:cafeteria,south:cell2,west:hallwayToHall
+cafeteria,This place is where food was once served and now it lays untouched. South is the main hall,south:hall

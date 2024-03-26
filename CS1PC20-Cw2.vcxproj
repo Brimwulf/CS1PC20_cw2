@@ -24,6 +24,7 @@
     <ProjectGuid>{77a34d38-c420-4953-9eab-ce603e8d47db}</ProjectGuid>
     <RootNamespace>CS1PC20Cw2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Phantasmal-CS1PC20-Cw2</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,11 +128,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CS1PC20-Cw2.cpp" />
+    <ClCompile Include="Character_.cpp" />
+    <ClCompile Include="CommandInterpreter.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameSaverLoader.cpp" />
+    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="Journal.cpp" />
+    <ClCompile Include="PhantasmalMainCode.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CommandInterpreter.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameSaverLoader.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="Journal.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Abandoned_Schoolhouse.txt" />
+    <Text Include="Eery_Asylum.txt" />
+    <Text Include="Old_Mansion.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
